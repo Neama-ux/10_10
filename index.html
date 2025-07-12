@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Open When Letters for You</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fdf6f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    margin: 0;
+  }
+  h1 {
+    color: #d94f4f;
+  }
+  .buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+  button {
+    background-color: #d94f4f;
+    border: none;
+    color: white;
+    padding: 14px 18px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1 1 120px;
+     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  button:hover {
+    background-color: #b73d3d;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .modal-content {
+    background: white;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 40px 50px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    position: relative;
+    font-size: 20px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #d94f4f;
+    text-align: center;
+  }
+  .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #d94f4f;
+    border: none;
+    color: white;
+    font-size: 28px;
+    padding: 6px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Open When Letters for You 💌</h1>
+
+<div class="buttons-container" id="buttonsContainer">
+  <!-- Buttons will be inserted here by JS -->
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content" id="modalContent">
+    <button class="close-btn" id="closeBtn">&times;</button>
+    <!-- Letter content will go here -->
+  </div>
+</div>
+
+<script>
+  // Letters with emoji/sticker icons
+  const letters = [
+    { emoji: "💌", title: "Open when you miss me", content: "Hey love, I miss you so much! Remember our last trip together..." },
+    { emoji: "😢", title: "Open when you're sad", content: "I’m here for you always. Take a deep breath, things will get better." },
+    { emoji: "🔥", title: "Open when you need motivation", content: "You’re capable of amazing things! Believe in yourself like I believe in you." },
+    { emoji: "😂", title: "Open when you want to laugh", content: "Why did the scarecrow win an award? Because he was outstanding in his field! 😄" },
+    { emoji: "😴", title: "Open when you’re tired", content: "Rest well, my love. I’ll be here when you wake up." },
+    { emoji: "🎉", title: "Open when it’s your birthday", content: "Happy Birthday! I hope your day is as wonderful as you are." },
+    { emoji: "🤗", title: "Open when you feel lonely", content: "You’re never alone. I’m always with you in spirit." },
+    { emoji: "💑", title: "Open when you want to remember us", content: "Remember our first date? That night changed my life forever." },
+    { emoji: "🤔", title: "Open when you’re confused", content: "Take your time, no rush. I’ll support you no matter what." },
+    { emoji: "❤️", title: "Open when you want to know how much I love you", content: "More than words can say, deeper than the ocean, brighter than the stars." }
+  ];
+
+  const buttonsContainer = document.getElementById("buttonsContainer");
+  const modal = document.getElementById("modal");
+   const modalContent = document.getElementById("modalContent");
+  const closeBtn = document.getElementById("closeBtn");
+
+  // Create buttons dynamically with emojis
+  letters.forEach((letter, index) => {
+    const btn = document.createElement("button");
+    btn.innerHTML = <span>${letter.emoji}</span> ${letter.title};
+    btn.addEventListener("click", () => {
+      modalContent.innerHTML = <button class="close-btn" id="closeBtn">&times;</button><h2>${letter.title}</h2><p>${letter.content}</p>;
+      modal.style.display = "flex";
+
+      // Add event listener for new close button inside modal content
+      document.getElementById("closeBtn").addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+    });
+    buttonsContainer.appendChild(btn);
+  });
+
+  // Close modal if clicking outside modal content
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+</body>
+</html>
